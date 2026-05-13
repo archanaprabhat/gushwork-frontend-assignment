@@ -16,7 +16,68 @@ function closeMobileMenu() {
   var btn = document.getElementById('hamburger');
   if (menu) menu.classList.remove('open');
   if (btn) btn.setAttribute('aria-expanded', 'false');
+  var mobTrig = document.getElementById('mobileProductsTrigger');
+  var mobPanel = document.getElementById('mobileProductsPanel');
+  if (mobTrig && mobPanel) {
+    mobTrig.setAttribute('aria-expanded', 'false');
+    mobPanel.setAttribute('hidden', '');
+  }
 }
+
+
+
+(function () {
+  var trigger = document.getElementById('navProductsTrigger');
+  var panel = document.getElementById('navProductsPanel');
+  if (!trigger || !panel) return;
+
+  function closeNavProducts() {
+    trigger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('nav__dropdown--open');
+    panel.setAttribute('hidden', '');
+  }
+
+  function openNavProducts() {
+    trigger.setAttribute('aria-expanded', 'true');
+    panel.removeAttribute('hidden');
+    requestAnimationFrame(function () {
+      panel.classList.add('nav__dropdown--open');
+    });
+  }
+
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (trigger.getAttribute('aria-expanded') === 'true') closeNavProducts();
+    else openNavProducts();
+  });
+
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a[role="menuitem"]')) closeNavProducts();
+  });
+
+  document.addEventListener('click', function () {
+    closeNavProducts();
+  });
+
+  window.closeNavProductsDropdown = closeNavProducts;
+})();
+
+(function () {
+  var mobTrigger = document.getElementById('mobileProductsTrigger');
+  var mobPanel = document.getElementById('mobileProductsPanel');
+  if (!mobTrigger || !mobPanel) return;
+  mobTrigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = mobTrigger.getAttribute('aria-expanded') === 'true';
+    if (open) {
+      mobTrigger.setAttribute('aria-expanded', 'false');
+      mobPanel.setAttribute('hidden', '');
+    } else {
+      mobTrigger.setAttribute('aria-expanded', 'true');
+      mobPanel.removeAttribute('hidden');
+    }
+  });
+})();
 
 
 
@@ -421,6 +482,9 @@ document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
 
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') {
+    if (typeof window.closeNavProductsDropdown === 'function') {
+      window.closeNavProductsDropdown();
+    }
     document.querySelectorAll('.modal-overlay.modal--open').forEach(function (m) {
       closeModal(m.id);
     });
