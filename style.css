@@ -13,6 +13,7 @@
   --font-serif: 'DM Serif Display', Georgia, serif;
   --ease: 0.2s ease;
   --r-sm: 8px;
+  --r-md: 12px;
   --r-lg: 16px;
 }
 *, *::before, *::after {
@@ -142,7 +143,7 @@ button {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #ffffff;
+  background: #fff;
   border-bottom: 1px solid var(--c-border);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-100%);
@@ -304,6 +305,8 @@ button {
   gap: 56px;
   align-items: start;
 }
+.hero__gallery {
+}
 .hero__main-img {
   position: relative;
   border-radius: var(--r-lg);
@@ -340,6 +343,8 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.hero__info {
 }
 .hero__title {
   font-family: var(--font-serif);
@@ -414,8 +419,12 @@ button {
   white-space: nowrap;
 }
 @keyframes scrollLogos {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 .specs {
   padding: 80px 0;
@@ -433,10 +442,8 @@ button {
   font-size: 16px;
   color: var(--c-muted);
   text-align: center;
-  margin-bottom: 48px;
+  margin: 0 auto 48px;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 .specs__table-wrap {
   overflow-x: auto;
@@ -448,8 +455,6 @@ button {
   font-size: 14px;
   background: var(--c-white);
   border: 1px solid var(--c-border);
-  border-radius: var(--r-md);
-  overflow: hidden;
 }
 .specs__table th {
   background: var(--blue);
@@ -487,6 +492,84 @@ button {
   border-color: var(--blue-light);
   transform: translateY(-1px);
 }
+.features {
+  padding: 80px 0;
+  background: var(--c-bg);
+}
+.features__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  color: var(--c-dark);
+  margin-bottom: 16px;
+  text-align: center;
+}
+.features__desc {
+  font-size: 16px;
+  color: var(--c-muted);
+  text-align: center;
+  margin: 0 auto 36px;
+  max-width: 640px;
+}
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.feat-card {
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.feat-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
+}
+.feat-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+.feat-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--c-dark);
+}
+.feat-card p {
+  margin: 0;
+  color: var(--c-muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+.features__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.btn-features-cta {
+  background: var(--blue);
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  border: 2px solid var(--blue);
+  transition: background var(--ease), transform var(--ease);
+}
+.btn-features-cta:hover {
+  background: var(--blue-light);
+  border-color: var(--blue-light);
+  transform: translateY(-1px);
+}
 @media (max-width: 1200px) {
   .container {
     padding: 0 80px;
@@ -505,6 +588,15 @@ button {
   }
   .specs__title {
     font-size: clamp(26px, 3.5vw, 36px);
+  }
+  .features__title {
+    font-size: clamp(26px, 3.5vw, 36px);
+  }
+  .features__desc {
+    font-size: 15px;
+  }
+  .features__grid {
+    gap: 22px;
   }
 }
 @media (max-width: 1080px) {
@@ -530,6 +622,9 @@ button {
   }
   .specs__title {
     font-size: clamp(24px, 3vw, 32px);
+  }
+  .features__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 800px) {
@@ -567,6 +662,21 @@ button {
   .specs__desc {
     font-size: 15px;
     margin-bottom: 40px;
+  }
+  .features__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .features__title {
+    font-size: clamp(22px, 3vw, 28px);
+  }
+  .features__desc {
+    font-size: 14px;
+  }
+  .feat-card {
+    padding: 20px;
+  }
+  .btn-features-cta {
+    padding: 12px 24px;
   }
   .specs__table th,
   .specs__table td {
@@ -612,6 +722,15 @@ button {
     font-size: 14px;
     margin-bottom: 32px;
   }
+  .features__grid {
+    grid-template-columns: 1fr;
+  }
+  .features__title {
+    font-size: 22px;
+  }
+  .feat-card {
+    padding: 18px;
+  }
 }
 @media (max-width: 380px) {
   .container {
@@ -632,5 +751,14 @@ button {
   .specs__desc {
     font-size: 13px;
     margin-bottom: 24px;
+  }
+  .features__title {
+    font-size: 20px;
+  }
+  .features__desc {
+    font-size: 13px;
+  }
+  .feat-card {
+    padding: 16px;
   }
 }
