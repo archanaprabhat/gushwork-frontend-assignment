@@ -1885,7 +1885,7 @@ button {
 }
 
 .features__title {
-  font-family: var(--font-serif);
+  font-family: var(--font-hero);
   font-size: clamp(28px, 3.2vw, 42px);
   color: #1a1a1a;
   margin-bottom: 12px;
@@ -1930,22 +1930,23 @@ button {
   flex-shrink: 0;
 }
 
-.feat-card__icon svg {
-  width: 100%;
-  height: 100%;
+.feat-card__icon img {
+  width: 26px;
+  height: 25px;
 }
 
 .feat-card h3 {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 10px;
   line-height: 1.35;
+  font-family: var(--font-hero);
 }
 
 .feat-card p {
   font-size: 13px;
-  color: #666;
+  color: #535a62;
   line-height: 1.65;
 }
 
@@ -1955,7 +1956,7 @@ button {
 }
 
 .btn-features-cta {
-  background: #1e2a78;
+  background: #2b3991;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -2105,32 +2106,33 @@ button {
 
 .faq__title {
   font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 700;
+  font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 36px;
   line-height: 1.2;
 }
 
-.faq__title em {
-  font-family: var(--font-serif);
+.faq__title span {
+font-family: var(--font);
   color: #1e2a78;
-  font-weight: 400;
 }
 
 .faq__list {
-  border: 1px solid #e0dfd9;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   margin-bottom: 24px;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
 }
 
 .faq__item {
-  border-bottom: 1px solid #e0dfd9;
-}
-
-.faq__item:last-child {
-  border-bottom: none;
+  border: 1px solid #e0dfd9;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
 }
 
 .faq__btn {
@@ -2159,8 +2161,12 @@ button {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: #999;
-  transition: transform 0.3s ease, color 0.2s ease;
+  padding: 6px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #4b5563;
+  transition: transform 0.3s ease, color 0.2s ease, background 0.2s ease;
   transform: rotate(180deg);
 }
 
@@ -2168,6 +2174,7 @@ button {
 .faq__item.open .faq__chevron {
   transform: rotate(0deg);
   color: #1e2a78;
+  background: #ede9fe;
 }
 
 .faq__item--open .faq__btn,
@@ -2195,14 +2202,21 @@ button {
 }
 
 .cat-bar {
-  background: #ffffff;
-  border: 1px solid #e0dfd9;
+  background: #f7f8fa;
+  border: 1px solid #e8eaef;
   border-radius: 12px;
   padding: 22px 24px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+.cat-bar__left {
+  flex: 1 1 58%;
+  min-width: 0;
 }
 
 .cat-bar__left h4 {
@@ -2217,21 +2231,29 @@ button {
   color: #666;
 }
 
+/* Wide (801px+): text left, form column right — input + button stacked (1080–1600+ layout) */
 .cat-bar__right {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 10px;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 336px;
+  min-width: 280px;
+  box-sizing: border-box;
 }
 
 .cat-bar__right input {
+  width: 100%;
+  flex: none;
+  min-width: 0;
   border: 1px solid #e0dfd9;
   border-radius: 8px;
   padding: 10px 16px;
   font-size: 14px;
   font-family: var(--font);
   outline: none;
-  width: 220px;
   background: #ffffff;
   color: #1a1a1a;
   transition: border-color 0.2s ease;
@@ -2246,11 +2268,13 @@ button {
 }
 
 .btn-cat {
+  width: 100%;
+  box-sizing: border-box;
   background: #1e2a78;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 10px 18px;
   font-family: var(--font);
   font-size: 14px;
   font-weight: 600;
@@ -2280,8 +2304,9 @@ button {
     padding: 16px 20px;
   }
 
-  .cat-bar__right input {
-    width: 180px;
+  .cat-bar__right {
+    max-width: 312px;
+    min-width: 260px;
   }
 }
 
@@ -2301,11 +2326,37 @@ button {
   }
 
   .cat-bar {
-    gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 20px 20px;
+  }
+
+  .cat-bar__left {
+    flex: none;
+    width: 100%;
+  }
+
+  .cat-bar__right {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
 
   .cat-bar__right input {
-    width: 160px;
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .btn-cat {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
   }
 }
 
@@ -2330,26 +2381,7 @@ button {
   }
 
   .cat-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 20px 18px;
-  }
-
-  .cat-bar__right {
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .cat-bar__right input {
-    width: 100%;
-  }
-
-  .btn-cat {
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
+    padding: 18px 16px;
   }
 }
 
@@ -2400,7 +2432,7 @@ button {
 }
 
 .app__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(24px, 2.8vw, 36px);
   font-weight: 700;
   color: #1a1a1a;
@@ -2591,7 +2623,7 @@ button {
 }
 
 .process__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(26px, 3vw, 38px);
   color: #1a1a1a;
   margin-bottom: 14px;
@@ -2688,7 +2720,7 @@ button {
 }
 
 .proc__panel-text h3 {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 22px;
   color: #1a1a1a;
   margin-bottom: 14px;
@@ -2951,7 +2983,7 @@ button {
 }
 
 .testi__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(28px, 3.5vw, 44px);
   color: var(--c-dark);
   line-height: 1.15;
@@ -3004,7 +3036,7 @@ button {
 }
 
 .testi__quote {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 30px;
   color: var(--blue);
   line-height: 1;
@@ -3013,7 +3045,7 @@ button {
 }
 
 .testi__card-title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 15px;
   color: var(--c-dark);
   line-height: 1.35;
@@ -3138,7 +3170,7 @@ button {
 }
 
 .port__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(26px, 3vw, 42px);
   color: var(--c-dark);
   line-height: 1.15;
@@ -3175,7 +3207,7 @@ button {
 }
 
 .port__card-title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 18px;
   color: var(--c-dark);
   line-height: 1.3;
@@ -3237,7 +3269,7 @@ button {
 }
 
 .port__banner-q {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 17px;
   color: var(--c-dark);
   margin: 0 0 4px;
@@ -3364,7 +3396,7 @@ button {
 }
 
 .res__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(26px, 3vw, 40px);
   color: var(--c-dark);
   line-height: 1.15;
@@ -3518,7 +3550,7 @@ button {
 }
 
 .cta__title {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(28px, 3vw, 42px);
   color: #ffffff;
   line-height: 1.15;
@@ -3783,7 +3815,7 @@ button {
 }
 
 .foot__logo-main {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: 26px;
   color: #8b1a1a;
   letter-spacing: 1px;
@@ -3808,7 +3840,7 @@ button {
 }
 
 .foot__tagline {
-  font-family: var(--font-serif);
+font-family: var(--font);
   font-size: clamp(18px, 2.2vw, 26px);
   color: var(--c-dark);
   line-height: 1.3;
