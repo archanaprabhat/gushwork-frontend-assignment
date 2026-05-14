@@ -276,38 +276,168 @@ function handleCatalogueSubmit() {
 
 
 (function () {
+  var APP_SLIDES = [
+    {
+      image: './assets/Fishnet.jpg',
+      title: 'Fishnet Manufacturing',
+      desc: 'High-performance twisting solutions for packaging yarn, strapping materials, and reinforcement threads used in modern packaging applications.'
+    },
+    {
+      image: './assets/HDPE.jpg',
+      title: 'HDPE Pipe Systems',
+      desc: 'Durable fusion-welded piping for water, gas, and industrial distribution with long service life and low maintenance.'
+    },
+    {
+      image: './assets/Professional.jpg',
+      title: 'Industrial Machinery',
+      desc: 'Precision-engineered equipment tailored for technical textiles, packaging lines, and demanding production environments.'
+    }
+  ];
+
+  var AUTO_SPEED = 42;
+  var ARROW_PAUSE_MS = 4000;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    AUTO_SPEED = 0;
+  }
+
+  var copyCount = 4;
+
+  function renderAppCarouselCards() {
+    var track = document.getElementById('appTrack');
+    if (!track) return;
+
+    var toRender = [];
+    for (var c = 0; c < copyCount; c++) {
+      APP_SLIDES.forEach(function (slide) {
+        toRender.push(slide);
+      });
+    }
+
+    track.innerHTML = '';
+    toRender.forEach(function (slide) {
+      var card = document.createElement('div');
+      card.className = 'app-card';
+      card.setAttribute('role', 'group');
+      card.setAttribute('aria-label', slide.title);
+      card.style.backgroundImage = 'url(' + JSON.stringify(slide.image) + ')';
+
+      var desc = document.createElement('p');
+      desc.className = 'app-card__desc';
+      desc.textContent = slide.desc;
+
+      var title = document.createElement('h3');
+      title.className = 'app-card__title';
+      title.textContent = slide.title;
+
+      card.appendChild(desc);
+      card.appendChild(title);
+      track.appendChild(card);
+    });
+  }
+
+  renderAppCarouselCards();
+
   var track = document.getElementById('appTrack');
   var prevBtn = document.getElementById('appPrev');
   var nextBtn = document.getElementById('appNext');
   if (!track || !prevBtn || !nextBtn) return;
 
-  var cards = track.querySelectorAll('.app-card');
-  var currentIdx = 0;
-  var gap = 16;
+  var offset = 0;
+  var setWidth = 0;
+  var cardStep = 0;
+  var pausedUntil = 0;
+  var lastTs = 0;
+  var rafId = 0;
 
-  function getVisible() {
-    var w = window.innerWidth;
-    if (w <= 380) return 1;
-    if (w <= 600) return 2;
-    if (w <= 1080) return 3;
-    return 4;
+  function readGap() {
+    var g = parseFloat(window.getComputedStyle(track).gap);
+    return isNaN(g) ? 10 : g;
   }
 
-  function getMax() {
-    return Math.max(0, cards.length - getVisible());
+  function measure() {
+    var cards = track.querySelectorAll('.app-card');
+    var n = APP_SLIDES.length;
+    if (cards.length < n * 2 || !cards[0]) {
+      setWidth = 0;
+      cardStep = 0;
+      return;
+    }
+    var gap = readGap();
+    var w = cards[0].getBoundingClientRect().width;
+    cardStep = w + gap;
+    setWidth = n * w + (n - 1) * gap;
   }
 
-  function goTo(i) {
-    currentIdx = Math.max(0, Math.min(i, getMax()));
-    var cardW = cards[0] ? cards[0].offsetWidth + gap : 0;
-    track.style.transform = 'translateX(-' + (currentIdx * cardW) + 'px)';
-    prevBtn.disabled = currentIdx === 0;
-    nextBtn.disabled = currentIdx >= getMax();
+  function adjustCopiesIfNeeded() {
+    measure();
+    if (setWidth <= 0) return;
+    var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+    var minTrack = vw + setWidth;
+    if (track.scrollWidth >= minTrack - 2) return;
+    var needed = Math.max(3, Math.ceil(minTrack / setWidth));
+    if (needed <= copyCount) return;
+    var offsetNorm = (offset % setWidth + setWidth) % setWidth;
+    copyCount = needed;
+    renderAppCarouselCards();
+    measure();
+    offset = offsetNorm;
+    wrapOffset();
+    applyTransform();
   }
 
-  prevBtn.addEventListener('click', function () { goTo(currentIdx - 1); });
-  nextBtn.addEventListener('click', function () { goTo(currentIdx + 1); });
+  function wrapOffset() {
+    if (setWidth <= 0) return;
+    var eps = 0.5;
+    while (offset >= setWidth - eps) offset -= setWidth;
+    while (offset < -eps) offset += setWidth;
+  }
 
+  function applyTransform() {
+    track.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+  }
+
+  function bump(dir) {
+    measure();
+    if (cardStep <= 0) return;
+    pausedUntil = Date.now() + ARROW_PAUSE_MS;
+    offset += dir * cardStep;
+    wrapOffset();
+    applyTransform();
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
+  }
+
+  function tick(ts) {
+    if (setWidth <= 0) measure();
+    adjustCopiesIfNeeded();
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+
+    if (setWidth > 0 && Date.now() > pausedUntil) {
+      offset += AUTO_SPEED * dt;
+      wrapOffset();
+    }
+    applyTransform();
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  function onResize() {
+    var prevSet = setWidth;
+    measure();
+    if (setWidth > 0 && prevSet > 0) {
+      offset = (offset % setWidth + setWidth) % setWidth;
+    }
+    wrapOffset();
+    applyTransform();
+  }
+
+  prevBtn.addEventListener('click', function () { bump(-1); });
+  nextBtn.addEventListener('click', function () { bump(1); });
+
+  prevBtn.disabled = false;
+  nextBtn.disabled = false;
 
   var startX = 0;
   track.addEventListener('touchstart', function (e) {
@@ -316,14 +446,23 @@ function handleCatalogueSubmit() {
   track.addEventListener('touchend', function (e) {
     var diff = startX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) {
-      goTo(diff > 0 ? currentIdx + 1 : currentIdx - 1);
+      bump(diff > 0 ? 1 : -1);
     }
   }, { passive: true });
 
+  window.addEventListener('resize', function () {
+    onResize();
+    adjustCopiesIfNeeded();
+    lastTs = 0;
+  });
 
-  window.addEventListener('resize', function () { goTo(currentIdx); });
-
-  goTo(0); 
+  measure();
+  wrapOffset();
+  applyTransform();
+  window.requestAnimationFrame(function () {
+    adjustCopiesIfNeeded();
+  });
+  rafId = window.requestAnimationFrame(tick);
 })();
 
 
