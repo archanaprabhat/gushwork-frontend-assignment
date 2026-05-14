@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mangalam HDPE Pipes – Premium HDPE Pipes & Coils</title>
+    <title>Gushwork | Archana Prabhat</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +29,7 @@
               <p class="sb__price">₹4,80,000 – 7,90,000</p>
             </div>
           </div>
-          <button class="sb__btn" onclick="openQuoteModal()">
+          <button class="sb__btn" type="button" onclick="openQuoteModal()">
             Get Custom Quote
           </button>
         </div>
@@ -395,24 +396,26 @@
           <div class="trusted-label">
             Trusted by Hundreds of Companies Globally
           </div>
-          <div class="trusted-logos">
-            <div class="tlogo">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
-            </div>
-            <div class="tlogo">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
-            </div>
-            <div class="tlogo">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
-            </div>
-            <div class="tlogo" id="hidden360">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
-            </div>
-            <div class="tlogo" id="hidden800">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
-            </div>
-            <div class="tlogo" id="hidden1200">
-              <img src="./assets/icons/Euroflex.svg" alt="" />
+          <div class="trusted-logos" aria-hidden="true">
+            <div class="trusted__track" id="trustedTrack">
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
+              <div class="tlogo">
+                <img src="./assets/icons/Euroflex.svg" alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -482,12 +485,24 @@
           </table>
         </div>
         <button type="button" class="dl-btn" onclick="openDownloadModal()">
-          <div class="down-load"><svg class="icon-download-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
+          <span class="down-load">
+            <svg
+              class="icon-download-svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
                 d="M12 15V3M12 15L8 11M12 15L16 11M2 17V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V17"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>Download Full Technical Datasheet</div>
-          
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Download Full Technical Datasheet
+          </span>
         </button>
       </div>
     </section>
@@ -1497,15 +1512,13 @@
       <div class="container">
         <div class="foot__banner">
           <div class="foot__logo">
-            <span class="foot__logo-main"
-              >M<span class="foot__logo-sm">ang</span>A<span
-                class="foot__logo-sm"
-                >lam</span
-              ></span
-            >
-            <span class="foot__logo-sub"
-              >HDPE <span class="foot__logo-pipe">|</span> PIPES</span
-            >
+            <img
+              class="foot__logo-img"
+              src="./assets/mangalamLogo.png"
+              alt="Mangalam HDPE Pipes"
+              width="200"
+              height="48"
+            />
           </div>
           <p class="foot__tagline">
             Premium

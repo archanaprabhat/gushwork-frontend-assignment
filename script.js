@@ -529,89 +529,229 @@ function handleCatalogueSubmit() {
 
 (function () {
   var track = document.getElementById('testiTrack');
-  if (!track) return;
+  var wrap = track && track.parentElement;
+  if (!track || !wrap) return;
 
-  var wrap = track.parentElement;
-  var cards = Array.from(track.children);
-  var total = cards.length;
-  var current = 0;
-  var startX = 0;
-  var dragDelta = 0;
-  var isDragging = false;
+  var originals = Array.from(track.querySelectorAll('.testi__card'));
+  var n = originals.length;
+  if (!n) return;
 
-  function getCardWidth() {
-    var gap = parseFloat(getComputedStyle(track).gap) || 24;
-    return (cards[0] ? cards[0].offsetWidth : 0) + gap;
+  var copyCount = 3;
+  var offset = 0;
+  var setWidth = 0;
+  var cardStep = 0;
+  var lastTs = 0;
+  var rafId = 0;
+  var AUTO_SPEED = 28;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    AUTO_SPEED = 0;
   }
 
-
-  function getMaxIndex() {
-    var wrapW = wrap.offsetWidth;
-    var cardW = getCardWidth();
-    return Math.max(0, total - Math.floor(wrapW / cardW));
+  function renderCopies() {
+    track.innerHTML = '';
+    for (var c = 0; c < copyCount; c++) {
+      originals.forEach(function (orig) {
+        track.appendChild(orig.cloneNode(true));
+      });
+    }
   }
 
-  function applyTransform(extra, animated) {
-    track.style.transition = animated
-      ? 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1)'
-      : 'none';
-    track.style.transform = 'translateX(' + (-(current * getCardWidth()) + (extra || 0)) + 'px)';
+  renderCopies();
+
+  function readGap() {
+    var g = parseFloat(window.getComputedStyle(track).gap);
+    return isNaN(g) ? 24 : g;
   }
 
-  function goTo(index) {
-    current = Math.max(0, Math.min(index, getMaxIndex()));
-    applyTransform(0, true);
+  function measure() {
+    var cards = track.querySelectorAll('.testi__card');
+    if (cards.length < n * 2 || !cards[0]) {
+      setWidth = 0;
+      cardStep = 0;
+      return;
+    }
+    var gap = readGap();
+    var w = cards[0].getBoundingClientRect().width;
+    cardStep = w + gap;
+    setWidth = n * w + (n - 1) * gap;
   }
 
-  wrap.addEventListener('mousedown', function (e) {
-    isDragging = true;
-    startX = e.clientX;
-    dragDelta = 0;
-    wrap.style.cursor = 'grabbing';
-    track.style.transition = 'none';
+  function adjustCopiesIfNeeded() {
+    measure();
+    if (setWidth <= 0) return;
+    var vw = wrap.offsetWidth || window.innerWidth || 0;
+    var minTrack = vw + setWidth;
+    if (track.scrollWidth >= minTrack - 2) return;
+    var needed = Math.max(3, Math.ceil(minTrack / setWidth));
+    if (needed <= copyCount) return;
+    var offsetNorm = (offset % setWidth + setWidth) % setWidth;
+    copyCount = needed;
+    renderCopies();
+    measure();
+    offset = offsetNorm;
+    wrapOffset();
+    applyTransform();
+  }
+
+  function wrapOffset() {
+    if (setWidth <= 0) return;
+    var eps = 0.5;
+    while (offset >= setWidth - eps) offset -= setWidth;
+    while (offset < -eps) offset += setWidth;
+  }
+
+  function applyTransform() {
+    track.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+  }
+
+  function tick(ts) {
+    if (setWidth <= 0) measure();
+    adjustCopiesIfNeeded();
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+    if (setWidth > 0) {
+      offset += AUTO_SPEED * dt;
+      wrapOffset();
+    }
+    applyTransform();
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  function onResize() {
+    var prevSet = setWidth;
+    measure();
+    if (setWidth > 0 && prevSet > 0) {
+      offset = (offset % setWidth + setWidth) % setWidth;
+    }
+    wrapOffset();
+    applyTransform();
+  }
+
+  window.addEventListener('resize', function () {
+    onResize();
+    adjustCopiesIfNeeded();
+    lastTs = 0;
   });
 
-  window.addEventListener('mousemove', function (e) {
-    if (!isDragging) return;
-    dragDelta = e.clientX - startX;
-    applyTransform(dragDelta, false);
+  measure();
+  wrapOffset();
+  applyTransform();
+  window.requestAnimationFrame(function () {
+    adjustCopiesIfNeeded();
   });
-
-  window.addEventListener('mouseup', function () {
-    if (!isDragging) return;
-    isDragging = false;
-    wrap.style.cursor = 'grab';
-    var threshold = getCardWidth() * 0.25;
-    if (dragDelta < -threshold) { goTo(current + 1); }
-    else if (dragDelta > threshold) { goTo(current - 1); }
-    else { applyTransform(0, true); } 
-  });
-
-  wrap.addEventListener('touchstart', function (e) {
-    startX = e.touches[0].clientX;
-    dragDelta = 0;
-    track.style.transition = 'none';
-  }, { passive: true });
-
-  wrap.addEventListener('touchmove', function (e) {
-    dragDelta = e.touches[0].clientX - startX;
-    applyTransform(dragDelta, false);
-  }, { passive: true });
-
-  wrap.addEventListener('touchend', function () {
-    var threshold = getCardWidth() * 0.25;
-    if (dragDelta < -threshold) { goTo(current + 1); }
-    else if (dragDelta > threshold) { goTo(current - 1); }
-    else { applyTransform(0, true); }
-  });
-
-  track.querySelectorAll('img').forEach(function (img) {
-    img.addEventListener('dragstart', function (e) { e.preventDefault(); });
-  });
-
-  window.addEventListener('resize', function () { goTo(current); });
+  rafId = window.requestAnimationFrame(tick);
 })();
 
+
+(function () {
+  var track = document.getElementById('trustedTrack');
+  var wrap = track && track.parentElement;
+  if (!track || !wrap) return;
+
+  var originals = Array.from(track.querySelectorAll('.tlogo'));
+  var n = originals.length;
+  if (!n) return;
+
+  var copyCount = 3;
+  var offset = 0;
+  var setWidth = 0;
+  var lastTs = 0;
+  var AUTO_SPEED = 40;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    AUTO_SPEED = 0;
+  }
+
+  function renderCopies() {
+    track.innerHTML = '';
+    for (var c = 0; c < copyCount; c++) {
+      originals.forEach(function (orig) {
+        track.appendChild(orig.cloneNode(true));
+      });
+    }
+  }
+
+  renderCopies();
+
+  function measure() {
+    var items = track.querySelectorAll('.tlogo');
+    if (items.length < n * 2 || !items[0] || !items[n - 1]) {
+      setWidth = 0;
+      return;
+    }
+    var a = items[0].getBoundingClientRect();
+    var b = items[n - 1].getBoundingClientRect();
+    setWidth = b.right - a.left;
+  }
+
+  function adjustCopiesIfNeeded() {
+    measure();
+    if (setWidth <= 0) return;
+    var vw = wrap.offsetWidth || 0;
+    var minTrack = vw + setWidth;
+    if (track.scrollWidth >= minTrack - 2) return;
+    var needed = Math.max(3, Math.ceil(minTrack / setWidth));
+    if (needed <= copyCount) return;
+    var offsetNorm = (offset % setWidth + setWidth) % setWidth;
+    copyCount = needed;
+    renderCopies();
+    measure();
+    offset = offsetNorm;
+    wrapOffset();
+    applyTransform();
+  }
+
+  function wrapOffset() {
+    if (setWidth <= 0) return;
+    var eps = 0.5;
+    while (offset >= setWidth - eps) offset -= setWidth;
+    while (offset < -eps) offset += setWidth;
+  }
+
+  function applyTransform() {
+    track.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+  }
+
+  function tick(ts) {
+    if (setWidth <= 0) measure();
+    adjustCopiesIfNeeded();
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+    if (setWidth > 0) {
+      offset += AUTO_SPEED * dt;
+      wrapOffset();
+    }
+    applyTransform();
+    window.requestAnimationFrame(tick);
+  }
+
+  function onResize() {
+    var prevSet = setWidth;
+    measure();
+    if (setWidth > 0 && prevSet > 0) {
+      offset = (offset % setWidth + setWidth) % setWidth;
+    }
+    wrapOffset();
+    applyTransform();
+  }
+
+  window.addEventListener('resize', function () {
+    onResize();
+    adjustCopiesIfNeeded();
+    lastTs = 0;
+  });
+
+  measure();
+  wrapOffset();
+  applyTransform();
+  window.requestAnimationFrame(function () {
+    adjustCopiesIfNeeded();
+  });
+  window.requestAnimationFrame(tick);
+})();
 
 
 function openModal(id) {
@@ -648,3 +788,18 @@ document.addEventListener('keydown', function (e) {
     closeMobileMenu();
   }
 });
+
+(function () {
+  var df = document.getElementById('downloadBrochureForm');
+  if (df) {
+    df.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+  }
+  var qf = document.getElementById('callbackQuoteForm');
+  if (qf) {
+    qf.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+  }
+})();
