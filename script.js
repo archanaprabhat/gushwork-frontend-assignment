@@ -130,12 +130,12 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
 
   var heroImages = [
-    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=90',
-    'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=90',
-    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=90',
-    'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=90',
-    'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=90',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=90'
+    'assets/Fishnet.jpg',
+    'assets/HDPE.jpg',
+    'assets/Professional.jpg',
+    'assets/Fishnet.jpg',
+    'assets/HDPE.jpg',
+    'assets/Professional.jpg'
   ];
 
   window.heroCurrentIndex = 0;
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mainImg) {
       mainImg.style.opacity = '0';
       setTimeout(function () {
-        mainImg.src = heroImages[window.heroCurrentIndex].replace('w=1200', 'w=900');
+        mainImg.src = heroImages[window.heroCurrentIndex];
         mainImg.style.opacity = '1';
       }, 150);
     }

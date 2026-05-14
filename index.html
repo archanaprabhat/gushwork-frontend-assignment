@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Urbanist:wght@500;600;700&display=swap"
     rel="stylesheet" />
 </head>
 <body>
@@ -16,7 +16,7 @@
       <div class="sb__inner">
         <div class="sb__left">
           <div class="sb__thumb">
-            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=160&q=70" alt="Product" />
+            <img src="assets/Fishnet.jpg" alt="Product" />
           </div>
           <div class="sb__info">
             <p class="sb__title">Premium HDPE Pipes &amp; Coils for Modern Infrastructure</p>
@@ -31,7 +31,7 @@
   <nav class="main-nav" id="mainNav">
     <div class="container">
       <div class="nav__inner">
-        <a href="#" class="brand">
+        <a href="https://archana-prabhat.vercel.app/" class="brand" rel="noopener noreferrer">
           <img class="brand__logo" src="assets/mangalamLogo.png" alt="Mangalam HDPE Pipes" width="200" height="48" />
         </a>
 
@@ -82,34 +82,34 @@
     </div>
   </nav>
 
-  <div class="breadcrumb">
-    <div class="container">
-      <a href="#">Products</a>
-      <span class="bc__sep">›</span>
-      <span>Two For One Twister</span>
-    </div>
-  </div>
-
+  <main class="page-main">
   <section class="hero">
-    <div class="container">
-      <div class="hero__grid">
+    <div class="container hero-container">
+      <nav class="hero__breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Products</a>
+        <svg class="hero__breadcrumb-chev" width="5" height="9" viewBox="0 0 5 9" fill="none" aria-hidden="true">
+          <path d="M1 1L4 4.5L1 8" stroke="#4d545b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="hero__breadcrumb-current">Two For One Twister</span>
+      </nav>
 
-      
+      <div class="hero__product-row">
         <div class="hero__gallery">
-
-         
           <div class="hero__zoom-wrap" id="heroZoomWrap">
-
-     
             <div class="hero__main-img" id="heroMainImg">
-              <img id="heroImgEl" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=85"
-                alt="Premium HDPE Pipes" />
-
-        
-              <button class="gal-arrow gal-arrow--prev" onclick="heroNav(-1)" aria-label="Previous">&#8592;</button>
-         
-              <button class="gal-arrow gal-arrow--next" onclick="heroNav(1)" aria-label="Next">&#8594;</button>
-
+              <img id="heroImgEl" src="assets/Fishnet.jpg" alt="Premium HDPE Pipes" />
+              <button type="button" class="gal-arrow gal-arrow--prev" onclick="heroNav(-1)" aria-label="Previous">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button type="button" class="gal-arrow gal-arrow--next" onclick="heroNav(1)" aria-label="Next">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
               <div class="hero__zoom-cursor" id="heroCursorDot">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"
                   stroke-linecap="round" stroke-linejoin="round">
@@ -120,7 +120,6 @@
                 </svg>
               </div>
             </div>
-         
             <div class="hero__zoom-panel" id="heroZoomPanel">
               <div class="hero__zoom-lens" id="heroZoomLens"></div>
               <div class="hero__zoom-label">
@@ -134,174 +133,183 @@
                 Zoom View
               </div>
             </div>
-
           </div>
-
           <div class="hero__thumbs">
-            <button class="hero__thumb active" onclick="heroSet(0)">
-              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=160&q=70" alt="View 1" />
+            <button type="button" class="hero__thumb active" onclick="heroSet(0)">
+              <img src="assets/Fishnet.jpg" alt="View 1" />
             </button>
-            <button class="hero__thumb" onclick="heroSet(1)">
-              <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=160&q=70" alt="View 2" />
+            <button type="button" class="hero__thumb" onclick="heroSet(1)">
+              <img src="assets/HDPE.jpg" alt="View 2" />
             </button>
-            <button class="hero__thumb" onclick="heroSet(2)">
-              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=160&q=70" alt="View 3" />
+            <button type="button" class="hero__thumb" onclick="heroSet(2)">
+              <img src="assets/Professional.jpg" alt="View 3" />
             </button>
-            <button class="hero__thumb" onclick="heroSet(3)">
-              <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=160&q=70" alt="View 4" />
+            <button type="button" class="hero__thumb" onclick="heroSet(3)">
+              <img src="assets/Fishnet.jpg" alt="View 4" />
             </button>
-            <button class="hero__thumb" onclick="heroSet(4)">
-              <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=160&q=70" alt="View 5" />
+            <button type="button" class="hero__thumb" onclick="heroSet(4)">
+              <img src="assets/HDPE.jpg" alt="View 5" />
             </button>
-            <button class="hero__thumb" onclick="heroSet(5)">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=160&q=70" alt="View 6" />
+            <button type="button" class="hero__thumb" onclick="heroSet(5)">
+              <img src="assets/Professional.jpg" alt="View 6" />
             </button>
           </div>
-       
-
         </div>
 
-
-       
         <div class="hero__info">
-
-
           <div class="hero__certs">
-            <div class="cert">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z" />
-              </svg>
+            <div class="hero-cert">
+              <img class="hero-cert__icon" src="assets/icons/BISCertified.svg" width="26" height="20" alt="" />
               BIS Certified
             </div>
-            <div class="cert">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M9 9h6M9 12h6M9 15h4" />
-              </svg>
+            <div class="hero-cert">
+              <img class="hero-cert__icon" src="assets/icons/IsiMark.png" width="26" height="20" alt="" />
               ISO Certified
             </div>
-            <div class="cert">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 8v4l3 3" />
-              </svg>
+            <div class="hero-cert">
+              <img class="hero-cert__icon" src="assets/icons/CE.png" width="26" height="20" alt="" />
               CE Certified
             </div>
           </div>
 
-        
           <h1 class="hero__title">Premium HDPE Pipes &amp; Coils for Modern Infrastructure</h1>
 
           <ul class="hero__feat-list">
             <li>
-              <svg class="check-icon" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="10" fill="#6b7280" />
-                <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
+              <span class="hero__feat-check" aria-hidden="true">
+                <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                  <circle cx="6.5" cy="6.5" r="6.5" fill="#2b3990" />
+                  <path d="M4 6.5L5.8 8.3L9 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
               Leak-Proof Fusion Joints
             </li>
             <li>
-              <svg class="check-icon" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="10" fill="#6b7280" />
-                <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
+              <span class="hero__feat-check" aria-hidden="true">
+                <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                  <circle cx="6.5" cy="6.5" r="6.5" fill="#2b3990" />
+                  <path d="M4 6.5L5.8 8.3L9 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
               Chemical Resistance
             </li>
             <li>
-              <svg class="check-icon" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="10" fill="#6b7280" />
-                <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
+              <span class="hero__feat-check" aria-hidden="true">
+                <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                  <circle cx="6.5" cy="6.5" r="6.5" fill="#2b3990" />
+                  <path d="M4 6.5L5.8 8.3L9 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
               50+ Year Service Life
             </li>
             <li>
-              <svg class="check-icon" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="10" fill="#6b7280" />
-                <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
+              <span class="hero__feat-check" aria-hidden="true">
+                <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                  <circle cx="6.5" cy="6.5" r="6.5" fill="#2b3990" />
+                  <path d="M4 6.5L5.8 8.3L9 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
               Flexible Installation
             </li>
             <li>
-              <svg class="check-icon" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="10" fill="#6b7280" />
-                <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              Flexible Installation
+              <span class="hero__feat-check" aria-hidden="true">
+                <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                  <circle cx="6.5" cy="6.5" r="6.5" fill="#2b3990" />
+                  <path d="M4 6.5L5.8 8.3L9 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              UV-Stable Outdoor Performance
             </li>
           </ul>
 
- 
           <div class="hero__price-box">
-            <p class="price-label">Price Range</p>
-            <p class="price-val">&#8377;4,80,000 &#8211; 7,90,000</p>
-            <div class="price-tags">
-              <span class="price-tag price-tag--yellow">Shipping: 6&#8211;12 days</span>
-              <span class="price-tag price-tag--yellow">Returns: If returned within 7 days</span>
+            <div>
+              <p class="price-label">Price Range</p>
+              <p class="price-val">&#8377;4,80,000 &#8211; 7,90,000</p>
             </div>
-            <p class="price-certs">Certifications: ISO Certified, BIS Certified</p>
+            <div class="hero__price-tags">
+              <div class="hero__tag-row">
+                <span class="hero__tag hero__tag--amber">Shipping: 6&#8211;12 days</span>
+                <span class="hero__tag hero__tag--amber">Returns: If returned within 7 days</span>
+              </div>
+              <div class="hero__tag-row">
+                <span class="hero__tag hero__tag--gray">Certifications: ISO Certified, BIS Certified</span>
+              </div>
+            </div>
           </div>
 
-  
           <div class="hero__ctas">
-            <button class="btn btn-cta-primary" onclick="openQuoteModal()">Get Custom Quote</button>
-            <button class="btn btn-cta-outline"
+            <button type="button" class="hero__btn hero__btn--fill" onclick="openQuoteModal()">Get Custom Quote</button>
+            <button type="button" class="hero__btn hero__btn--outline"
               onclick="document.getElementById('specs').scrollIntoView({behavior:'smooth'})">
-              View Technical Specs &rsaquo;
+              View Technical Specs
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">
+                <path d="M1 1L6 6L1 11" stroke="#25292d" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
             </button>
           </div>
-
         </div>
-
-
       </div>
-  
 
-
-      <div class="hero__mobile-bottom" style="display:none;">
+      <div class="hero__mobile-bottom">
         <div class="hero__price-box" id="mobilePriceBox">
-          <p class="price-label">Price Range</p>
-          <p class="price-val">&#8377;4,80,000 &#8211; 7,90,000</p>
-          <div class="price-tags">
-            <span class="price-tag price-tag--yellow">Shipping: 6&#8211;12 days</span>
-            <span class="price-tag price-tag--white">Returns: If returned within 7 days</span>
+          <div>
+            <p class="price-label">Price Range</p>
+            <p class="price-val">&#8377;4,80,000 &#8211; 7,90,000</p>
           </div>
-          <p class="price-certs">Certifications: ISO Certified, BIS Certified</p>
+          <div class="hero__price-tags">
+            <div class="hero__tag-row">
+              <span class="hero__tag hero__tag--amber">Shipping: 6&#8211;12 days</span>
+              <span class="hero__tag hero__tag--amber">Returns: If returned within 7 days</span>
+            </div>
+            <div class="hero__tag-row">
+              <span class="hero__tag hero__tag--gray">Certifications: ISO Certified, BIS Certified</span>
+            </div>
+          </div>
         </div>
-        <button class="btn btn-cta-primary" onclick="openQuoteModal()">Get Custom Quote</button>
-        <button class="btn btn-cta-outline"
+        <button type="button" class="hero__btn hero__btn--fill hero__btn--block" onclick="openQuoteModal()">Get Custom Quote</button>
+        <button type="button" class="hero__btn hero__btn--outline hero__btn--block"
           onclick="document.getElementById('specs').scrollIntoView({behavior:'smooth'})">
-          View Technical Specs &rsaquo;
+          View Technical Specs
+          <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">
+            <path d="M1 1L6 6L1 11" stroke="#25292d" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </button>
       </div>
 
-
       <div class="trusted">
         <p class="trusted__label">Trusted by Hundreds of Companies Globally</p>
-        <div class="trusted__scroll">
-          <div class="trusted__track">
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
-            <span class="trusted__logo">EUROFLEX<small>WE CREATE SOLUTIONS</small></span>
+        <div class="trusted__logos">
+          <div class="trusted__logo-slot">
+            <img src="assets/icons/Euroflex.svg" alt="Euroflex" />
+          </div>
+          <div class="trusted__logo-slot">
+            <img src="assets/icons/Euroflex.svg" alt="" />
+          </div>
+          <div class="trusted__logo-slot">
+            <img src="assets/icons/Euroflex.svg" alt="" />
+          </div>
+          <div class="trusted__logo-slot trusted__logo-slot--hide-800">
+            <img src="assets/icons/Euroflex.svg" alt="" />
+          </div>
+          <div class="trusted__logo-slot trusted__logo-slot--hide-1000">
+            <img src="assets/icons/Euroflex.svg" alt="" />
+          </div>
+          <div class="trusted__logo-slot trusted__logo-slot--hide-1200">
+            <img src="assets/icons/Euroflex.svg" alt="" />
           </div>
         </div>
       </div>
     </div>
   </section>
-</main>
+  </main>
   <section class="specs" id="specs">
     <div class="container">
 
