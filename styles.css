@@ -1,3 +1,24 @@
+/**
+ * styles.css — layout map (each major block has a "====" banner; search "====" to jump).
+ *
+ * 1  Design tokens (:root) + container padding breakpoints
+ * 2  Global reset, .container, shared .btn helpers
+ * 3  Brand / logo
+ * 4  Sticky top bar (above nav after first fold)
+ * 5  Main nav + mobile menu
+ * 6  Hero / PDP (gallery, zoom, trusted strip)
+ * 9  Modals
+ * 10 Technical specifications (#specs)
+ * 11 Features grid
+ * 12 FAQ accordion
+ * 13 Applications carousel
+ * 14 Manufacturing process tabs
+ * 15 Testimonials marquee
+ * 16 Portfolio cards
+ * 17 Resources
+ * 18 Contact CTA
+ * 19 Footer
+ */
 
 :root {
   --max-w: 1240px;

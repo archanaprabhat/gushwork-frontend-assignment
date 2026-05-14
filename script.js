@@ -348,7 +348,6 @@ function handleCatalogueSubmit() {
   var cardStep = 0;
   var pausedUntil = 0;
   var lastTs = 0;
-  var rafId = 0;
 
   function readGap() {
     var g = parseFloat(window.getComputedStyle(track).gap);
@@ -420,7 +419,7 @@ function handleCatalogueSubmit() {
       wrapOffset();
     }
     applyTransform();
-    rafId = window.requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
   }
 
   function onResize() {
@@ -462,7 +461,7 @@ function handleCatalogueSubmit() {
   window.requestAnimationFrame(function () {
     adjustCopiesIfNeeded();
   });
-  rafId = window.requestAnimationFrame(tick);
+  window.requestAnimationFrame(tick);
 })();
 
 
@@ -541,7 +540,6 @@ function handleCatalogueSubmit() {
   var setWidth = 0;
   var cardStep = 0;
   var lastTs = 0;
-  var rafId = 0;
   var AUTO_SPEED = 28;
 
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -616,7 +614,7 @@ function handleCatalogueSubmit() {
       wrapOffset();
     }
     applyTransform();
-    rafId = window.requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
   }
 
   function onResize() {
@@ -641,7 +639,7 @@ function handleCatalogueSubmit() {
   window.requestAnimationFrame(function () {
     adjustCopiesIfNeeded();
   });
-  rafId = window.requestAnimationFrame(tick);
+  window.requestAnimationFrame(tick);
 })();
 
 
