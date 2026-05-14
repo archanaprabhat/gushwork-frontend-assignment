@@ -1057,7 +1057,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
   position: relative;
   z-index: 2;
 }
@@ -1618,244 +1618,259 @@ button {
 
 
 /* =====================================================
-   10. TECHNICAL SPECIFICATIONS (Section 2)
-   Dark background with semi-transparent table rows.
-   On ≤600px: header hidden, rows stack vertically.
+   10. TECHNICAL SPECIFICATIONS (reference S4 — scoped to #specs only)
+   Reference: horizontal inset lives on .section, not on .container (ref .container has no side padding).
+   Global .container here adds --container-inline — neutralized inside #specs to avoid double padding / overflow.
    ===================================================== */
-.specs {
-  background: #1a2030;
-  padding: 100px 0;
-}
 
-.specs__title {
-  font-family: var(--font-serif);
-  font-size: clamp(26px, 3vw, 40px);
-  color: #ffffff;
-  margin-bottom: 14px;
-  line-height: 1.2;
-}
-
-.specs__desc {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.48);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 40px;
-}
-
-.specs__table-wrap {
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 36px;
-}
-
-.specs__table {
+#specs.section {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  background: #111827;
+  box-sizing: border-box;
   width: 100%;
-  border-collapse: collapse;
-  background: transparent;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
-.specs__table thead tr {
-  background: rgba(255, 255, 255, 0.055);
+#specs.section.dark-section {
+  background: #111827;
 }
 
-.specs__table th {
-  padding: 14px 24px;
-  text-align: left;
-  font-size: 11px;
+/* Match reference .container: max-width + center only, no horizontal padding */
+#specs.section .container {
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+#specs .section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+
+#specs .section-title {
+  font-family: var(--font-hero);
+  font-size: 44px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.32);
+  line-height: 52.8px;
+  color: #0d0d0d;
 }
 
-.specs__table th:first-child {
-  width: 40%;
+#specs .section-sub {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.8px;
+  color: #4d545b;
 }
 
-.specs__table tbody tr {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
-  transition: background 0.15s ease;
+#specs .section-title.lg {
+  font-size: 48px;
+  line-height: 57.6px;
 }
 
-.specs__table tbody tr:last-child {
-  border-bottom: none;
+#specs .technical-container {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-.specs__table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.035);
+#specs .specs-table {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #374151;
+  box-sizing: border-box;
 }
 
-.specs__table td {
-  padding: 15px 24px;
+#specs .specs-table table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#specs .specs-table,
+#specs .specs-table * {
+  box-sizing: border-box;
+}
+
+#specs .specs-table th,
+#specs .specs-table td {
+  width: 50%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#specs .specs-table th {
+  background: #374151;
+  color: #fff;
   font-size: 14px;
-  vertical-align: middle;
-  line-height: 1.55;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 12px 24px;
+  text-align: left;
+  letter-spacing: -0.084px;
 }
 
-.specs__table td:first-child {
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 13px;
+#specs .specs-table td {
+  background: #1f2937;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 16px 24px;
+  border-top: 1px solid #374151;
+}
+
+#specs .specs-table td:first-child {
   font-weight: 500;
 }
 
-.specs__table td:last-child {
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.specs__dl-row {
+#specs .dl-btn {
   display: flex;
   justify-content: center;
-}
-
-.btn-specs-dl {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.82);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  padding: 13px 28px;
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
   align-items: center;
-  gap: 8px;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 4px;
+  padding: 16px 24px;
+  background: none;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  font-family: var(--font);
+  cursor: pointer;
+  margin-top: 24px;
+  box-sizing: border-box;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.btn-specs-dl:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.07);
-  color: #ffffff;
+.down-load svg{
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
 }
-
-@media (max-width: 1200px) {
-  .specs {
-    padding: 80px 0;
-  }
+.down-load{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 @media (max-width: 1080px) {
-  .specs {
-    padding: 80px 0;
+  #specs.section {
+    padding-left: 60px;
+    padding-right: 60px;
   }
 
-  .specs__table th,
-  .specs__table td {
-    padding: 14px 20px;
+  #specs .specs-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 1200px) {
+  #specs.section {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+
+  #specs .section-title {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  #specs .section-title.lg {
+    font-size: 44px;
+    line-height: 52.8px;
+  }
+}
+
+@media (max-width: 1440px) {
+  #specs.section {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media (max-width: 360px) {
+  #specs.section {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  #specs .section-title {
+    font-size: 26px;
+    line-height: 31.2px;
+  }
+
+  #specs .section-title.lg {
+    font-size: 28px;
+    line-height: 33.6px;
+  }
+
+  #specs .section-sub {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #specs .technical-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #specs .dl-btn {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 800px) {
-  .specs {
-    padding: 80px 0;
+  #specs.section {
+    padding-left: 48px;
+    padding-right: 48px;
   }
 
-  .specs__title {
-    font-size: clamp(24px, 4vw, 32px);
+  #specs .section-title {
+    font-size: 32px;
+    line-height: 38.4px;
   }
 
-  .specs__table th,
-  .specs__table td {
-    padding: 13px 16px;
+  #specs .section-title.lg {
+    font-size: 36px;
+    line-height: 43.2px;
   }
 
-  .specs__table td {
-    font-size: 13px;
+  #specs .section-sub {
+    font-size: 16px;
+    line-height: 26px;
   }
 
-  .specs__table td:first-child {
-    font-size: 12px;
-  }
-
-  .specs__table th {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-  .specs {
-    padding: 48px 0;
-  }
-
-  .specs__title {
-    font-size: 24px;
-  }
-
-  .specs__desc {
-    font-size: 13px;
-    margin-bottom: 24px;
-  }
-
-
-  .specs__table thead {
-    display: none;
-  }
-
-  .specs__table tbody tr {
-    display: block;
-    padding: 14px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-
-  .specs__table tbody tr:last-child {
-    border-bottom: none;
-  }
-
-  .specs__table tbody tr:hover {
-    background: none;
-  }
-
-  .specs__table td {
-    display: block;
-    padding: 0;
-    width: 100% !important;
-  }
-
-  .specs__table td:first-child {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-    margin-bottom: 4px;
-  }
-
-  .specs__table td:last-child {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.88);
-  }
-
-  .btn-specs-dl {
-    width: 100%;
-    justify-content: center;
-    font-size: 13px;
-    padding: 12px 20px;
-  }
-}
-
-@media (max-width: 380px) {
-  .specs {
-    padding: 48px 0;
-  }
-
-  .specs__title {
-    font-size: 22px;
-  }
-
-  .specs__table tbody tr {
-    padding: 12px 14px;
-  }
-
-  .specs__table td:first-child {
-    font-size: 9px;
-  }
-
-  .specs__table td:last-child {
-    font-size: 12px;
+  #specs .specs-table th,
+  #specs .specs-table td {
+    padding: 12px 16px;
+    font-size: 14px;
   }
 }
 
