@@ -2,9 +2,14 @@
 
 A responsive product page built with **vanilla HTML, CSS, and JavaScript** (no frameworks). It follows the Gushwork take-home briefs.
 
+## Live demo
+
+[https://archanaprabhat.github.io/gushwork-frontend-assignment/](https://archanaprabhat.github.io/gushwork-frontend-assignment/)
+
 ## Walkthrough
 
 [Loom — project walkthrough](https://www.loom.com/share/5f7731666da446f6a751772554d334bc)
+ 
 
 ## Features
 
